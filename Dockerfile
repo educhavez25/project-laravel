@@ -22,4 +22,4 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # CAMBIO CLAVE:
 # En lugar de 'optimize' (que guarda caché), usamos 'route:clear' y 'config:clear'.
 # Esto obliga a Laravel a leer las rutas en vivo, evitando errores de caché vieja.
-CMD ["/bin/sh", "-c", "php artisan migrate --force && php artisan db:seed --force && php artisan route:clear && php artisan config:clear && php artisan view:clear && /start.sh"]
+CMD ["/bin/sh", "-c", "php artisan migrate --force && php artisan route:clear && php artisan config:clear && php artisan view:clear && /start.sh"]
