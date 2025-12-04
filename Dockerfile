@@ -17,4 +17,9 @@ ENV LOG_CHANNEL stderr
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # 4. Arranque (Migraciones + Seeders + Cache)
-CMD ["/bin/sh", "-c", "php artisan migrate --force && php artisan db:seed --force && php artisan optimize && /start.sh"]
+# (El resto del archivo déjalo igual, solo cambia la línea final CMD)
+
+# CAMBIO CLAVE:
+# En lugar de 'optimize' (que guarda caché), usamos 'route:clear' y 'config:clear'.
+# Esto obliga a Laravel a leer las rutas en vivo, evitando errores de caché vieja.
+CMD ["/bin/sh", "-c", "php artisan migrate --force && php artisan db:seed --force && php artisan route:clear && php artisan config:clear && php artisan view:clear && /start.sh"]
