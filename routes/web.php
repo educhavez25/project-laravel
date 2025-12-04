@@ -8,3 +8,8 @@ Route::get('/', function () {
 });
 
 Route::resource('products', ProductController::class);
+
+// Ruta de prueba simple
+Route::get('/prueba', function () {
+    return '¡La ruta funciona!';
+});
