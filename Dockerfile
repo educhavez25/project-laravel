@@ -3,8 +3,9 @@ FROM richarvey/nginx-php-fpm:latest
 # 1. Copiar archivos
 COPY . .
 
-# 2. Instalar librerías
-RUN composer install --no-dev --optimize-autoloader
+# 2. INSTALAR LIBRERÍAS (CORREGIDO)
+# Quitamos el '--no-dev' para que se instale Faker y funcione el fake()
+RUN composer install --optimize-autoloader
 
 # 3. Configuraciones
 ENV SKIP_COMPOSER 1
@@ -15,8 +16,5 @@ ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# 4. ARRANQUE AUTOMÁTICO CON TODO INCLUIDO:
-# - migrate --force: Crea las tablas si no existen.
-# - db:seed --force: Llena la base de datos (¡Soluciona tu problema de datos!).
-# - optimize: Limpia y reconstruye la caché de rutas (¡Soluciona tu error 404!).
+# 4. Arranque (Migraciones + Seeders + Cache)
 CMD ["/bin/sh", "-c", "php artisan migrate --force && php artisan db:seed --force && php artisan optimize && /start.sh"]
